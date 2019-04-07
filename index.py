@@ -2,6 +2,7 @@ from flask import Flask,request,make_response,jsonify,render_template,Response,r
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
 import time
+import datetime
 import os
 
 app = Flask(__name__)
@@ -75,10 +76,29 @@ def saveFiles():
     response = make_response(jsonify(new_file_info))
     return response
 
+@app.route('/getnotices')
+def getNotices():
+    data = [
+        {
+            'title':'hello',
+            'content':'hello world hello world hello world hello world hello world hello world hello world hello world ',
+            'time':datetime.datetime.now()
+        },
+        {
+            'title':'hello',
+            'content':'hello world hello world hello world hello world hello world hello world hello world hello world ',
+            'time':datetime.datetime.now()
+        }
+    ]
+    res = make_response(jsonify(data))
+    return res
+
 # 404页面
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template('page_not_found.html'), 404
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
